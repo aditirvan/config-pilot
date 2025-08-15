@@ -204,8 +204,8 @@ jobs:
             artifacts/config-pilot-linux-arm64/config-pilot-linux-arm64
             artifacts/config-pilot-darwin-amd64/config-pilot-darwin-amd64
             artifacts/config-pilot-darwin-arm64/config-pilot-darwin-arm64
-            artifacts/config-pilot-deb-amd64/config-pilot_latest_*.deb
-            artifacts/config-pilot-deb-arm64/config-pilot_latest_*.deb
+            artifacts/config-pilot-deb-amd64/config-pilot-*.deb
+            artifacts/config-pilot-deb-arm64/config-pilot-*.deb
           draft: false
           prerelease: false
           generate_release_notes: true
