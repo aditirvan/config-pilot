@@ -1,0 +1,20 @@
+#!/bin/bash
+# Post-installation script
+
+# Create config directory
+mkdir -p /etc/config-pilot
+
+# Create log directory
+mkdir -p /var/log/config-pilot
+
+# Set proper permissions
+chown -R root:root /usr/bin/config-pilot
+chown -R root:root /etc/config-pilot
+chown -R root:root /var/log/config-pilot
+
+# Make binary executable
+chmod +x /usr/bin/config-pilot
+
+echo "Config Pilot installed successfully!"
+echo "Configuration file: /etc/config-pilot/config.yaml"
+echo "Logs: /var/log/config-pilot/"
