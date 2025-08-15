@@ -12,10 +12,6 @@ import (
 
 func main() {
 
-	// monitor.DecryptFiles(nil)
-
-	// return
-
 	// Load configuration from config.yaml
 	cfg, err := config.LoadConfig("config.yaml")
 	if err != nil {
