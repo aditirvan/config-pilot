@@ -114,7 +114,7 @@ func pullRepository(config *config.Config) error {
 
 	time.Sleep(5 * time.Second)
 
-	cmd := exec.Command("git", "clone", fmt.Sprintf("https://git:%s@github.com/%s/%s.git", os.Getenv("GITHUB_TOKEN"), config.Owner, config.Repo))
+	cmd := exec.Command("git", "clone", fmt.Sprintf("https://git:%s@github.com/%s/%s.git", config.GithubToken, config.Owner, config.Repo))
 	cmd.Dir = "data" // Ensure we are in the correct directory
 	output, err := cmd.CombinedOutput()
 	if err != nil {

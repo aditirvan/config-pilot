@@ -13,6 +13,7 @@ type Config struct {
 	MonitorPath string `yaml:"monitorPath"`
 	Script      string `yaml:"script"`
 	AgeKey      string `yaml:"ageSecret"`
+	GithubToken string `yaml:"githubToken"`
 }
 
 func LoadConfig(filename string) (*Config, error) {

@@ -16,13 +16,6 @@ func main() {
 
 	// return
 
-	token := os.Getenv("GITHUB_TOKEN")
-	if token == "" {
-		utils.Logger.Error("Please set GITHUB_TOKEN environment variable")
-		utils.Logger.Error("Usage: export GITHUB_TOKEN=your_personal_access_token")
-		return
-	}
-
 	// Load configuration from config.yaml
 	cfg, err := config.LoadConfig("config.yaml")
 	if err != nil {
@@ -36,7 +29,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	client := github.NewClient(token, cfg.Owner, cfg.Repo)
+	if cfg.GithubToken == "" {
+		utils.Logger.Error("Error: githubToken must be specified in config.yaml")
+		utils.Logger.Error("Usage: add githubToken: your_personal_access_token to config.yaml")
+		return
+	}
+
+	client := github.NewClient(cfg.GithubToken, cfg.Owner, cfg.Repo)
 	commitHandler := monitor.DefaultCommitHandler(cfg)
 	monitorService := monitor.NewService(client, cfg.MonitorPath, cfg.Repo, cfg.Owner, cfg.Repo, commitHandler)
 
