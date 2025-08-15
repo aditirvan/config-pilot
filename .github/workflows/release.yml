@@ -158,8 +158,9 @@ jobs:
           Architecture: ${{ matrix.arch }}
           Depends: systemd
           Maintainer: Config Pilot Team
-          Description: Config Pilot - Configuration management and monitoring service
-          Config Pilot is a service that monitors configuration changes and provides automated deployment capabilities.
+          Description: |
+            Config Pilot - Configuration management and monitoring service
+            Config Pilot is a service that monitors configuration changes and provides automated deployment capabilities.
           EOF
 
       - name: Set permissions
