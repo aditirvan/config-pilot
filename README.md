@@ -41,7 +41,33 @@ Download the latest release from the [releases page](https://github.com/aditirva
 
 ## Configuration
 
-Create a `config.yaml` file in the project root directory:
+### Configuration File Location
+
+The application supports two ways to specify the configuration file location:
+
+1. **Environment Variable (Recommended)**: Set the `CONFIG_PATH` environment variable
+2. **Default Location**: Uses `config.yaml` in the current working directory
+
+#### Using Environment Variable
+```bash
+# Set config file path via environment variable
+export CONFIG_PATH="/path/to/your/config.yaml"
+./gitops-monitor
+
+# Or inline
+CONFIG_PATH="/path/to/your/config.yaml" ./gitops-monitor
+
+# Windows
+set CONFIG_PATH=C:\path\to\your\config.yaml
+gitops-monitor.exe
+```
+
+#### Using Default Location
+Simply create a `config.yaml` file in the project root directory where you run the application.
+
+### Configuration File Format
+
+Create your configuration file with the following structure:
 
 ```yaml
 # GitHub Configuration
@@ -75,6 +101,12 @@ script: |
 | `monitorPath` | Specific directory to monitor | No | `kubernetes/manifests` |
 | `ageSecret` | Age private key for SOPS decryption | Yes | `AGE-SECRET-KEY-...` |
 | `script` | Custom script to execute after updates | Yes | See example above |
+
+### Environment Variables
+
+| Variable | Description | Default | Example |
+|----------|-------------|---------|---------|
+| `CONFIG_PATH` | Path to configuration file | `config.yaml` | `/etc/gitops/config.yaml` |
 
 ### GitHub Token Setup
 
@@ -110,6 +142,35 @@ script: |
    # Or using go run
    go run cmd/monitor/main.go
    ```
+
+### Using Custom Configuration Path
+
+You can specify a custom configuration file location using the `CONFIG_PATH` environment variable:
+
+```bash
+# Use custom config file
+export CONFIG_PATH="/etc/gitops/production-config.yaml"
+./gitops-monitor
+
+# Or use with systemd service
+CONFIG_PATH="/opt/gitops/configs/staging.yaml" ./gitops-monitor
+
+# Docker example
+docker run -e CONFIG_PATH=/app/config/production.yaml -v /host/config:/app/config gitops-monitor
+```
+
+### Running with Different Configurations
+
+```bash
+# Development
+CONFIG_PATH="./configs/dev.yaml" ./gitops-monitor
+
+# Staging
+CONFIG_PATH="./configs/staging.yaml" ./gitops-monitor
+
+# Production
+CONFIG_PATH="/etc/gitops/production.yaml" ./gitops-monitor
+```
 
 ### Example Configuration Files
 

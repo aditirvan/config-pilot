@@ -12,10 +12,15 @@ import (
 
 func main() {
 
-	// Load configuration from config.yaml
-	cfg, err := config.LoadConfig("config.yaml")
+	// Load configuration from config file specified by CONFIG_PATH environment variable
+	configPath := os.Getenv("CONFIG_PATH")
+	if configPath == "" {
+		configPath = "config.yaml"
+	}
+
+	cfg, err := config.LoadConfig(configPath)
 	if err != nil {
-		utils.Logger.Error(fmt.Sprintf("Error loading config: %s", err.Error()))
+		utils.Logger.Error(fmt.Sprintf("Error loading config from %s: %s", configPath, err.Error()))
 		os.Exit(1)
 	}
 
