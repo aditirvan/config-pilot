@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'config.yaml.sample'
+      - '.gitignore'
+      - 'README.md'
   workflow_dispatch:
 
 permissions:
