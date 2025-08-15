@@ -171,13 +171,13 @@ jobs:
 
       - name: Build .deb package
         run: |
-          dpkg-deb --build build config-pilot_1.0.0_${{ matrix.arch }}.deb
+          dpkg-deb --build build config-pilot-${{ matrix.arch }}.deb
 
       - name: Upload .deb artifact
         uses: actions/upload-artifact@v4
         with:
-          name: config-pilot-deb-${{ matrix.arch }}
-          path: config-pilot_1.0.0_${{ matrix.arch }}.deb
+          name: config-pilot-${{ matrix.arch }}
+          path: config-pilot-${{ matrix.arch }}.deb
 
   release:
     name: Create Release
