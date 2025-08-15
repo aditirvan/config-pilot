@@ -171,7 +171,9 @@ jobs:
 
       - name: Build .deb package
         run: |
+          ls -la
           dpkg-deb --build build config-pilot-${{ matrix.arch }}.deb
+          ls -la
 
       - name: Upload .deb artifact
         uses: actions/upload-artifact@v4
