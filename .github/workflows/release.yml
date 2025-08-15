@@ -205,6 +205,11 @@ jobs:
           ls -la
           ls artifacts
 
+      - name: check2
+        run: |
+          ls -la artifacts/config-pilot-deb-arm64
+          ls -la artifacts/config-pilot-deb-amd64
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
