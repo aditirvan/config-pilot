@@ -39,11 +39,16 @@ nfpms:
     vendor: Config Pilot
     homepage: https://github.com/aditirvan/config-pilot
     maintainer: Adhithia Irvan <adhithia.irvan@gmail.com>
-    description: Config Pilot - GitOps Configuration Monitor
+    description: |-
+      Config Pilot - GitOps Configuration Monitor
+      A simple tool to monitor GitHub repositories for configuration changes
+      and automatically create pull requests for detected changes.
     license: MIT
     formats:
       - deb
     bindir: /usr/bin
+    section: utils
+    priority: optional
     contents:
       - src: deb-package/etc/config-pilot/config.yaml
         dst: /etc/config-pilot/config.yaml
@@ -68,3 +73,6 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+
+release:
+  name_template: "Release {{.Tag}}"
