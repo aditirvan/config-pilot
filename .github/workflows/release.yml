@@ -152,7 +152,7 @@ jobs:
         run: |
           cat > build/DEBIAN/control << EOF
           Package: config-pilot
-          Version: latest
+          Version: 1.0.0
           Section: utils
           Priority: optional
           Architecture: ${{ matrix.arch }}
