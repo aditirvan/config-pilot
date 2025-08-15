@@ -96,70 +96,70 @@ jobs:
       - name: Create systemd service
         run: |
           cat > build/lib/systemd/system/config-pilot.service << 'EOF'
-[Unit]
-Description=Config Pilot Service
-After=network.target
+          [Unit]
+          Description=Config Pilot Service
+          After=network.target
 
-[Service]
-Type=simple
-User=root
-Group=root
-ExecStart=/usr/bin/config-pilot
-Restart=always
-RestartSec=10
-Environment=CONFIG_FILE=/etc/config-pilot/config.yaml
-Environment=LOG_LEVEL=info
+          [Service]
+          Type=simple
+          User=root
+          Group=root
+          ExecStart=/usr/bin/config-pilot
+          Restart=always
+          RestartSec=10
+          Environment=CONFIG_FILE=/etc/config-pilot/config.yaml
+          Environment=LOG_LEVEL=info
 
-[Install]
-WantedBy=multi-user.target
-EOF
+          [Install]
+          WantedBy=multi-user.target
+          EOF
 
       - name: Create postinst script
         run: |
           cat > build/DEBIAN/postinst << 'EOF'
-#!/bin/bash
-set -e
+          #!/bin/bash
+          set -e
 
-# Create log directory
-mkdir -p /var/log/config-pilot
+          # Create log directory
+          mkdir -p /var/log/config-pilot
 
-# Enable and start service
-systemctl daemon-reload
-systemctl enable config-pilot.service
+          # Enable and start service
+          systemctl daemon-reload
+          systemctl enable config-pilot.service
 
-# Don't start automatically on install, let user decide
-# systemctl start config-pilot.service
+          # Don't start automatically on install, let user decide
+          # systemctl start config-pilot.service
 
-exit 0
-EOF
+          exit 0
+          EOF
 
       - name: Create prerm script
         run: |
           cat > build/DEBIAN/prerm << 'EOF'
-#!/bin/bash
-set -e
+          #!/bin/bash
+          set -e
 
-# Stop service
-systemctl stop config-pilot.service || true
-systemctl disable config-pilot.service || true
+          # Stop service
+          systemctl stop config-pilot.service || true
+          systemctl disable config-pilot.service || true
 
-exit 0
-EOF
+          exit 0
+          EOF
 
       - name: Create control file
         run: |
           cat > build/DEBIAN/control << EOF
-Package: config-pilot
-Version: ${GITHUB_REF_NAME#v}
-Section: utils
-Priority: optional
-Architecture: ${{ matrix.arch }}
-Depends: systemd
-Maintainer: Config Pilot Team
-Description: Config Pilot - Configuration management and monitoring service
- Config Pilot is a service that monitors configuration changes
- and provides automated deployment capabilities.
-EOF
+          Package: config-pilot
+          Version: ${GITHUB_REF_NAME#v}
+          Section: utils
+          Priority: optional
+          Architecture: ${{ matrix.arch }}
+          Depends: systemd
+          Maintainer: Config Pilot Team
+          Description: Config Pilot - Configuration management and monitoring service
+          Config Pilot is a service that monitors configuration changes
+          and provides automated deployment capabilities.
+          EOF
 
       - name: Set permissions
         run: |
