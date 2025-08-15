@@ -207,8 +207,8 @@ jobs:
 
       - name: check2
         run: |
-          ls -la artifacts/config-pilot-deb-arm64
-          ls -la artifacts/config-pilot-deb-amd64
+          ls -la artifacts/config-pilot-arm64
+          ls -la artifacts/config-pilot-amd64
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -219,8 +219,8 @@ jobs:
             artifacts/config-pilot-linux-arm64/config-pilot-linux-arm64
             artifacts/config-pilot-darwin-amd64/config-pilot-darwin-amd64
             artifacts/config-pilot-darwin-arm64/config-pilot-darwin-arm64
-            artifacts/config-pilot-deb-amd64/config-pilot-*.deb
-            artifacts/config-pilot-deb-arm64/config-pilot-*.deb
+            artifacts/config-pilot-amd64/config-pilot-*.deb
+            artifacts/config-pilot-arm64/config-pilot-*.deb
           draft: false
           prerelease: false
           generate_release_notes: true
