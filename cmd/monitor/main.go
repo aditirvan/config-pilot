@@ -37,7 +37,7 @@ func main() {
 
 	client := github.NewClient(cfg.GithubToken, cfg.Owner, cfg.Repo)
 	commitHandler := monitor.DefaultCommitHandler(cfg)
-	monitorService := monitor.NewService(client, cfg.MonitorPath, cfg.Repo, cfg.Owner, cfg.Repo, commitHandler)
+	monitorService := monitor.NewService(client, cfg, commitHandler)
 
 	utils.Logger.Info("Starting gitops automation")
 

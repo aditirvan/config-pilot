@@ -14,6 +14,7 @@ type Config struct {
 	Script      string `yaml:"script"`
 	AgeKey      string `yaml:"ageSecret"`
 	GithubToken string `yaml:"githubToken"`
+	Interval    int    `yaml:"interval"`
 }
 
 func LoadConfig(filename string) (*Config, error) {

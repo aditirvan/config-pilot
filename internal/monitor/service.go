@@ -30,15 +30,15 @@ type Service struct {
 }
 
 // NewService creates a new commit monitoring service
-func NewService(client *github.Client, monitorPath, repoPath, owner, repo string, handler CommitHandler) *Service {
+func NewService(client *github.Client, config *config.Config, handler CommitHandler) *Service {
 	return &Service{
 		client:      client,
 		handler:     handler,
-		interval:    10 * time.Second,
-		monitorPath: monitorPath,
-		repoPath:    repoPath,
-		owner:       owner,
-		repo:        repo,
+		interval:    time.Duration(config.Interval) * time.Second,
+		monitorPath: config.MonitorPath,
+		repoPath:    config.Repo,
+		owner:       config.Owner,
+		repo:        config.Repo,
 	}
 }
 
@@ -47,7 +47,8 @@ func (s *Service) Start() error {
 	// Get initial commit to establish baseline
 	initialCommit, err := s.client.GetLatestCommit(s.monitorPath)
 	if err != nil {
-		utils.Logger.Error(fmt.Sprintf("failed to get initial commit: %w", err))
+		utils.Logger.Error(fmt.Sprintf("failed to get initial commit: %s", err.Error()))
+		return err
 	}
 
 	s.lastKnownSHA = initialCommit.SHA
@@ -60,12 +61,11 @@ func (s *Service) Start() error {
 	ticker := time.NewTicker(s.interval)
 	defer ticker.Stop()
 
-	for {
-		select {
-		case <-ticker.C:
-			s.checkForUpdates()
-		}
+	for range ticker.C {
+		s.checkForUpdates()
 	}
+
+	return nil
 }
 
 // checkForUpdates checks for new commits and triggers handler if found
@@ -96,6 +96,14 @@ func DefaultCommitHandler(config *config.Config) CommitHandler {
 
 // pullRepository pulls the latest changes from the repository
 func pullRepository(config *config.Config) error {
+
+	if _, err := os.Stat("data/files"); os.IsNotExist(err) {
+		// Jika folder tidak ada, buat folder
+		err := os.MkdirAll("data/files", os.ModePerm)
+		if err != nil {
+			return err
+		}
+	}
 
 	err := os.RemoveAll(fmt.Sprintf("data/%s", config.Repo))
 	if err != nil {
