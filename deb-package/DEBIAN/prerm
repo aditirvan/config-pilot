@@ -1,0 +1,7 @@
+#!/bin/bash
+# Pre-removal script
+
+# Stop service if running
+systemctl stop config-pilot 2>/dev/null || true
+
+echo "Removing Config Pilot..."

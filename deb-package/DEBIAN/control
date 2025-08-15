@@ -1,0 +1,10 @@
+Package: config-pilot
+Version: 1.0.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.2.5)
+Maintainer: Adhithia Irvan <adhithia.irvan@gmail.com>
+Description: Config Pilot - GitOps Configuration Monitor
+ A simple tool to monitor GitHub repositories for configuration changes
+ and automatically create pull requests for detected changes.

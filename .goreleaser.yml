@@ -32,6 +32,30 @@ archives:
       - goos: windows
         format: zip
 
+nfpms:
+  - id: config-pilot-deb
+    package_name: config-pilot
+    file_name_template: "{{ .ConventionalFileName }}"
+    vendor: Config Pilot
+    homepage: https://github.com/aditirvan/config-pilot
+    maintainer: Adhithia Irvan <adhithia.irvan@gmail.com>
+    description: Config Pilot - GitOps Configuration Monitor
+    license: MIT
+    formats:
+      - deb
+    bindir: /usr/bin
+    contents:
+      - src: deb-package/etc/config-pilot/config.yaml
+        dst: /etc/config-pilot/config.yaml
+        type: config
+      - src: deb-package/lib/systemd/system/config-pilot.service
+        dst: /lib/systemd/system/config-pilot.service
+    overrides:
+      deb:
+        scripts:
+          postinstall: deb-package/DEBIAN/postinst
+          preremove: deb-package/DEBIAN/prerm
+
 checksum:
   name_template: 'checksums.txt'
 
