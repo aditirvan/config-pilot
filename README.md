@@ -25,8 +25,8 @@ A Go-based GitOps automation tool that monitors GitHub repositories for changes 
 
 ```bash
 # Clone the repository
-git clone https://github.com/aditirvan/gitops-source-automation.git
-cd gitops-source-automation
+git clone https://github.com/aditirvan/config-pilot.git
+cd config-pilot
 
 # Install dependencies
 go mod download
@@ -37,7 +37,7 @@ go build -o gitops-monitor cmd/monitor/main.go
 
 ### Option 2: Download Binary
 
-Download the latest release from the [releases page](https://github.com/aditirvan/gitops-source-automation/releases).
+Download the latest release from the [releases page](https://github.com/aditirvan/config-pilot/releases).
 
 ## Configuration
 
@@ -58,7 +58,6 @@ ageSecret: AGE-SECRET-KEY-your-age-private-key-here
 
 # Script Configuration
 script: |
-  #!/bin/bash
   # Your custom script here
   echo "Running deployment script..."
   kubectl apply -f .
@@ -154,7 +153,7 @@ script: |
 ## Directory Structure
 
 ```
-gitops-source-automation/
+config-pilot/
 ├── cmd/
 │   └── monitor/
 │       └── main.go          # Main application entry point
@@ -251,6 +250,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 For issues and questions:
-- Create an issue on [GitHub Issues](https://github.com/aditirvan/gitops-source-automation/issues)
+- Create an issue on [GitHub Issues](https://github.com/aditirvan/config-pilot/issues)
 - Check existing issues for solutions
 - Review the troubleshooting section above
