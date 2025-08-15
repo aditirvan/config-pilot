@@ -203,7 +203,7 @@ jobs:
       - name: check
         run: |
           ls -la
-          ls artifacts
+          ls -la artifacts
 
       - name: check2
         run: |
