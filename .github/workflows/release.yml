@@ -110,12 +110,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p dist
-          gh release download ${{ needs.release.outputs.tag_name }} --pattern "monitor-*" --dir dist
+          gh release download ${{ needs.release.outputs.tag_name }} --pattern "config-pilot-*" --dir dist
 
       - name: Generate checksums
         run: |
           cd dist
-          sha256sum monitor-* > checksums.txt
+          sha256sum config-pilot-* > checksums.txt
 
       - name: Upload checksums
         uses: actions/upload-release-asset@v1
