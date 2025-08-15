@@ -201,7 +201,9 @@ jobs:
           path: artifacts
 
       - name: check
-        run: ls -la
+        run: |
+          ls -la
+          ls artifacts
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
