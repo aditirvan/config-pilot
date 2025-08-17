@@ -111,6 +111,9 @@ jobs:
           Restart=always
           RestartSec=10
           Environment="CONFIG_PATH=/etc/config-pilot/config.yaml"
+          Environment="LOG_TO_FILE=true"
+          Environment="LOG_LEVEL=info"
+          Environment="LOG_FILE_PATH=/var/log/config-pilot/app.log"
 
           [Install]
           WantedBy=multi-user.target

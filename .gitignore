@@ -1,2 +1,4 @@
+*.log
 data/
 config.yaml
+config-pilot
