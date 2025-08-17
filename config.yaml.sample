@@ -3,6 +3,7 @@ owner: github-username
 repo: your-repository
 monitorPath: path-directory-to-monitor
 ageSecret: sops age private key
+interval: 60
 script: |
   your adhoc script
   ...
