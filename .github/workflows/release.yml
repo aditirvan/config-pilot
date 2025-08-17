@@ -6,7 +6,8 @@ on:
       - main
     paths-ignore:
       - '**.md'
-      - 'docs/**'
+      - '.gitignore'
+      - 'config.yaml.sample'
   workflow_dispatch:
 
 env:
