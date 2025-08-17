@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-
 	// Load configuration from config file specified by CONFIG_PATH environment variable
 	configPath := os.Getenv("CONFIG_PATH")
 	if configPath == "" {
@@ -23,6 +22,16 @@ func main() {
 		utils.Logger.Error(fmt.Sprintf("Error loading config from %s: %s", configPath, err.Error()))
 		os.Exit(1)
 	}
+
+	// Initialize logger with configuration
+	loggingConfig := utils.LoadLoggingConfig(&cfg.Logging)
+	utils.InitializeLogger(loggingConfig)
+
+	// Log configuration details
+	if loggingConfig.LogToFile && loggingConfig.LogFilePath != "" {
+		utils.Logger.Info(fmt.Sprintf("Logging to file: %s", loggingConfig.LogFilePath))
+	}
+	utils.Logger.Info(fmt.Sprintf("Log level: %s", loggingConfig.LogLevel))
 
 	// Validate configuration
 	if cfg.Owner == "" || cfg.Repo == "" {
@@ -47,7 +56,7 @@ func main() {
 	} else {
 		utils.Logger.Info("Monitoring entire repository")
 	}
-	utils.Logger.Info("Press Ctrl+C to stop monitoringy")
+	utils.Logger.Info("Press Ctrl+C to stop monitoring")
 
 	if err := monitorService.Start(); err != nil {
 		utils.Logger.Info(fmt.Sprintf("Error starting monitor: %v", err))

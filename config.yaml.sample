@@ -8,3 +8,7 @@ script: |
   your adhoc script
   ...
   ...
+logging:
+  logFilePath: "/var/log/config-pilot/app.log"
+  logLevel: "info"
+  logToFile: false

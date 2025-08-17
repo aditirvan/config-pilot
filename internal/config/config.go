@@ -4,17 +4,19 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/aditirvan/config-pilot/internal/utils"
 	"gopkg.in/yaml.v2"
 )
 
 type Config struct {
-	Owner       string `yaml:"owner"`
-	Repo        string `yaml:"repo"`
-	MonitorPath string `yaml:"monitorPath"`
-	Script      string `yaml:"script"`
-	AgeKey      string `yaml:"ageSecret"`
-	GithubToken string `yaml:"githubToken"`
-	Interval    int    `yaml:"interval"`
+	Owner       string              `yaml:"owner"`
+	Repo        string              `yaml:"repo"`
+	MonitorPath string              `yaml:"monitorPath"`
+	Script      string              `yaml:"script"`
+	AgeKey      string              `yaml:"ageSecret"`
+	GithubToken string              `yaml:"githubToken"`
+	Interval    int                 `yaml:"interval"`
+	Logging     utils.LoggingConfig `yaml:"logging"`
 }
 
 func LoadConfig(filename string) (*Config, error) {
