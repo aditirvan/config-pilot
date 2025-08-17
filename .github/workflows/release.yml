@@ -6,7 +6,8 @@ on:
       - main
     paths-ignore:
       - '**.md'
-      - 'docs/**'
+      - '.gitignore'
+      - 'config.yaml.sample'
   workflow_dispatch:
 
 env:
@@ -109,8 +110,7 @@ jobs:
           ExecStart=/usr/bin/config-pilot
           Restart=always
           RestartSec=10
-          Environment=CONFIG_FILE=/etc/config-pilot/config.yaml
-          Environment=LOG_LEVEL=info
+          Environment="CONFIG_PATH=/etc/config-pilot/config.yaml"
 
           [Install]
           WantedBy=multi-user.target
@@ -125,12 +125,27 @@ jobs:
           # Create log directory
           mkdir -p /var/log/config-pilot
 
-          # Enable and start service
+          # Enable service (but don't start automatically)
           systemctl daemon-reload
           systemctl enable config-pilot.service
 
-          # Don't start automatically on install, let user decide
-          # systemctl start config-pilot.service
+          # Display configuration message
+          echo ""
+          echo "=================================================="
+          echo "Config Pilot installed successfully!"
+          echo ""
+          echo "IMPORTANT: Please configure the service before starting it."
+          echo ""
+          echo "Configuration file: /etc/config-pilot/config.yaml"
+          echo "Sample configuration: /etc/config-pilot/config.yaml.sample"
+          echo ""
+          echo "After configuration, start the service with:"
+          echo "  sudo systemctl start config-pilot.service"
+          echo ""
+          echo "Check service status with:"
+          echo "  sudo systemctl status config-pilot.service"
+          echo "=================================================="
+          echo ""
 
           exit 0
           EOF
