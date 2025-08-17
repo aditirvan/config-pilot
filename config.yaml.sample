@@ -1,0 +1,9 @@
+githubToken: ghp_xxxxxxxxxxxxx
+owner: github-username
+repo: your-repository
+monitorPath: path-directory-to-monitor
+ageSecret: sops age private key
+script: |
+  your adhoc script
+  ...
+  ...
